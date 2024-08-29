@@ -1,5 +1,5 @@
 pipeline {
-    agent None
+    agent none
     stages {
         stage('Checkout - Staging Server') {
             agent {label 'Agent1'}
