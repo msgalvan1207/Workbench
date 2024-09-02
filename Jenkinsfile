@@ -21,7 +21,7 @@ pipeline {
             steps {
                 echo "Starting web server"
                 echo "This should be changed to nginx or apache or smth later"
-                sh 'ng s'
+                sh 'ng s --host 0.0.0.0'
             }
         }
     }
