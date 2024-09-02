@@ -18,9 +18,11 @@ pipeline {
             }
         }
         stage('Serve') {
-            echo "Starting web server"
-            echo "This should be changed to nginx or apache or smth later"
-            sh 'ng s'
+            steps {
+                echo "Starting web server"
+                echo "This should be changed to nginx or apache or smth later"
+                sh 'ng s'
+            }
         }
     }
 }
