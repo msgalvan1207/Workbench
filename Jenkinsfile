@@ -10,9 +10,11 @@ pipeline {
             }
 
         }
-        stage('Build - Staging Server') {
+        stage('Build') {
             steps {
                 echo "Executing Build"
+                sh 'npm install'
+                sh 'ng build'
             }
         }
     }
