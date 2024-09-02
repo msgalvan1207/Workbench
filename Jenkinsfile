@@ -4,7 +4,9 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo "Executing git checkout: Staging"
-                sh 'ls'
+                sh 'node --version'
+                sh 'npm --version'
+                sh 'ng version'
             }
 
         }
