@@ -4,6 +4,7 @@ pipeline {
         stage('Checkout') {
             steps {
                 echo "Executing git checkout: Staging"
+                sh 'ls'
             }
 
         }
