@@ -22,7 +22,7 @@ pipeline {
                 echo "Starting web server"
                 echo "This should be changed to nginx or apache or smth later"
                 sh "forever stopall"
-                sh "forever start \$(which npx) serve -l 80 -s -p 4200 /var/jenkins_home/workspace/Initial_job/dist/build-bench-ws/browser/"
+                sh "forever start \$(which npx) serve -s -p 4200 /var/jenkins_home/workspace/Initial_job/dist/build-bench-ws/browser/"
             }
         }
     }
