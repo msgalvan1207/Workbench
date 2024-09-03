@@ -21,7 +21,7 @@ pipeline {
             steps {
                 echo "Starting web server"
                 echo "This should be changed to nginx or apache or smth later"
-                sh 'ng s --host 0.0.0.0'
+                sh 'npx --silent serve dist/build-bench-ws/browser -p 4200
             }
         }
     }
