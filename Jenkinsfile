@@ -14,12 +14,12 @@ pipeline {
             steps {
                 echo "Executing Build"
                 sh 'npm install'
-                sh 'ng build'
+                sh 'ng build --output-path /var/www/html'
             }
         }
         stage('Serve') {
             steps {
-                sh 'cp -a dist/build-bench-ws/browser/. /var/www/html'
+                echo "xd"
             }
         }
     }
