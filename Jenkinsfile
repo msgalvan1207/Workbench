@@ -14,7 +14,8 @@ pipeline {
             steps {
                 echo "Executing Build"
                 sh 'npm install'
-                sh 'ng build --output-path /var/www/html'
+                sh 'ng build'
+                sh 'cp -r dist/build-bench-ws/browser/* /var/www/html '
             }
         }
         stage('Serve') {
