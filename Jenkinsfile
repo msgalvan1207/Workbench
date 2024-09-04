@@ -1,7 +1,7 @@
 pipeline {
     agent any
     stages {
-        stage('Checkout') {
+        stage('Check') {
             steps {
                 echo "Executing git checkout: Staging"
                 sh 'node --version'
@@ -14,15 +14,13 @@ pipeline {
             steps {
                 echo "Executing Build"
                 sh 'npm install'
+                sh 'ng test'
                 sh 'ng build'
             }
         }
         stage('Serve') {
             steps {
-                echo "Starting web server"
-                echo "This should be changed to nginx or apache or smth later"
-                sh "forever stopall"
-                sh "forever start \$(which npx) serve -s -p 4200 /var/jenkins_home/workspace/Initial_job/dist/build-bench-ws/browser/"
+                sh 'cp -a dist/build-bench-ws/browser/. /var/www/html'
             }
         }
     }
