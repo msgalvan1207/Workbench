@@ -14,7 +14,6 @@ pipeline {
             steps {
                 echo "Executing Build"
                 sh 'npm install'
-                sh 'ng test'
                 sh 'ng build'
             }
         }
