@@ -25,14 +25,16 @@ pipeline {
                         transfers: [
                             sshTransfer(
                                 sourceFiles: 'dist/build-bench-ws/browser/*',
-                                remoteDirectory: '/usr/local/apache2/htdocs' //Averiguar esto ahora
+                                remoteDirectory: '/usr/local/apache2/htdocs', //Averiguar esto ahora
+                                remoteDirectorySDF: false
                             )
                         ],
-                        usePromotionTimeStap: false,
                         verbose: true,
-                        alwaysPublishFromMaster: true
+                        
                     )
-                ])
+                ],
+                alwaysPublishFromMaster: true
+                )
             }
         }
     }
