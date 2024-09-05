@@ -26,7 +26,7 @@ pipeline {
                             sshTransfer(
                                 sourceFiles: 'dist/build-bench-ws/browser/**',
                                 remoteDirectory: '', //Averiguar esto ahora
-                                remoteDirectorySDF: false
+                                remoteDirectorySDF: false,
                                 flatten: true
                             )
                         ],
