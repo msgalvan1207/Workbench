@@ -24,7 +24,7 @@ pipeline {
                         configName: 'Front-end-server',
                         transfers: [
                             sshTransfer(
-                                sourceFiles: 'dist/build-bench-ws/browser/*',
+                                sourceFiles: 'dist/build-bench-ws/browser/**',
                                 remoteDirectory: '', //Averiguar esto ahora
                                 remoteDirectorySDF: false
                             )
