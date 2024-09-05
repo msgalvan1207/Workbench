@@ -15,12 +15,24 @@ pipeline {
                 echo "Executing Build"
                 sh 'npm install'
                 sh 'ng build'
-                sh 'cp -r dist/build-bench-ws/browser/* /var/www/html '
             }
         }
-        stage('Serve') {
+        stage('Deploy') {
             steps {
-                echo "xd"
+                sshPublisher( publishers: [
+                    sshPublisherDesc(
+                        configName: 'Front-end-server',
+                        transfers: [
+                            sshTransfer(
+                                sourceFiles: 'dist/build-bench-ws/browser/*',
+                                remoteDirectory: '/usr/local/apache2/htdocs' //Averiguar esto ahora
+                            )
+                        ],
+                        usePromotionTimeStap: false,
+                        verbose: true,
+                        alwaysPublishFromMaster: true
+                    )
+                ])
             }
         }
     }
