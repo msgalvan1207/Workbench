@@ -27,6 +27,7 @@ pipeline {
                                 sourceFiles: 'dist/build-bench-ws/browser/**',
                                 remoteDirectory: '', //Averiguar esto ahora
                                 remoteDirectorySDF: false
+                                flatten: true
                             )
                         ],
                         verbose: true,
