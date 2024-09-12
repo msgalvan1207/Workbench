@@ -51,7 +51,7 @@ pipeline {
                     def deployConfigName
                     if (params.BUILD == 'production') {
                         deployConfigName = 'front-prod'
-                    } else if {params.BUILD == 'development'}{
+                    } else if (params.BUILD == 'development'){
                         deployConfigName = 'front-qa'
                     } else {
                         error "Unsuported build type: ${params.BUILD}"
