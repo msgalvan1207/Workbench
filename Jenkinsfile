@@ -8,6 +8,7 @@ pipeline {
     environment {
         GIT_REPO = 'Workbench'
         GIT_CREDENTIAL_ID = 'github-auth-token'
+        DEPLOY_CONFIG_NAME = ''
     }
 
     parameters {
@@ -48,14 +49,7 @@ pipeline {
 
 
                 script {
-                    def deployConfigName
-                    if (params.BUILD == 'production') {
-                        deployConfigName = 'front-prod'
-                    } else if (params.BUILD == 'development'){
-                        deployConfigName = 'front-qa'
-                    } else {
-                        error "Unsuported build type: ${params.BUILD}"
-                    }
+                    env.DEPLOY_CONFIG_NAME = (params.BUILD=='production') ? 'front-prod' : 'front-qa'
                 }
 
 
@@ -64,7 +58,7 @@ pipeline {
 
                 sshPublisher( publishers: [
                     sshPublisherDesc(
-                        configName: deployConfigName,
+                        configName: env.DEPLOY_CONFIG_NAME,
                         transfers: [
                             sshTransfer(
                                 sourceFiles: 'dist/build-bench-ws/browser/**',
