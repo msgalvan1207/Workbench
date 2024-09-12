@@ -1,12 +1,19 @@
 pipeline {
     agent any
+
     options {
         skipDefaultCheckout()
     }
+
     environment {
         GIT_REPO = 'Workbench'
         GIT_CREDENTIAL_ID = 'github-auth-token'
     }
+
+    parameters {
+        choice(name: 'BUILD', choices: ['production', 'development'], description: 'type of build and server')
+    }
+
     stages {
 
         stage('Checkout') {
@@ -25,6 +32,7 @@ pipeline {
                 sh 'node --version'
                 sh 'npm --version'
                 sh 'ng version'
+                echo "Building for the following environment: ${params.BUILD}"
             }
 
         }
@@ -32,11 +40,26 @@ pipeline {
             steps {
                 echo "Executing Build"
                 sh 'npm install'
-                sh 'ng build'
+                sh "ng build --configuration ${params.BUILD}"
             }
         }
         stage('Deploy') {
             steps {
+
+
+                script {
+                    def deployConfigName
+                    if (params.BUILD == 'production') {
+                        deployConfigName = 'front-prod'
+                    } else if {params.BUILD == 'development'}{
+                        deployConfigName = 'front-qa'
+                    }
+                }
+
+
+
+
+
                 sshPublisher( publishers: [
                     sshPublisherDesc(
                         configName: 'front-prod',
