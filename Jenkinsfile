@@ -53,6 +53,8 @@ pipeline {
                         deployConfigName = 'front-prod'
                     } else if {params.BUILD == 'development'}{
                         deployConfigName = 'front-qa'
+                    } else {
+                        error "Unsuported build type: ${params.BUILD}"
                     }
                 }
 
