@@ -1,5 +1,8 @@
 pipeline {
     agent any
+    options {
+        skipDefaultCheckout()
+    }
     environment {
         GIT_REPO = 'Workbench'
         GIT_CREDENTIAL_ID = 'github-auth-token'
