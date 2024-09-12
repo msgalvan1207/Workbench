@@ -8,7 +8,7 @@ pipeline {
 
         stage('Checkout') {
             steps {
-                scmSkip(deleteBuild: true, skipPattern:'.*\\[ci-skip\\].*')
+                //scmSkip(deleteBuild: true, skipPattern:'.*\\[ci-skip\\].*')
                 git branch : 'main',
                     credentialsId: env.GIT_CREDENTIAL_ID,
                     url: 'https://github.com/msgalvan1207/' + env.GIT_REPO
