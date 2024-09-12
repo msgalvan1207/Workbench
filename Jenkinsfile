@@ -1,6 +1,21 @@
 pipeline {
     agent any
+    environment {
+        GIT_REPO = 'Workbench'
+        GIT_CREDENTIAL_ID = 'github-auth-token'
+    }
     stages {
+
+        stage('Checkout') {
+            steps {
+                scmSkip(deleteBuild: true, skipPattern:'.*\\[ci-skip\\].*')
+                git branch : 'main',
+                    credentialsId: env.GIT_CREDENTIAL_ID,
+                    url: 'https://github.com/msgalvan1207/' + env.GIT_REPO
+            }
+        }
+
+
         stage('Check') {
             steps {
                 echo "Executing git checkout: Staging"
@@ -36,6 +51,15 @@ pipeline {
                 ],
                 alwaysPublishFromMaster: true
                 )
+            }
+        }
+    }
+    post {
+        always {
+            cleanWs()
+            deleteDir()
+            dir("${env.GIT_REPO}@tmp") {
+                deleteDir()
             }
         }
     }
