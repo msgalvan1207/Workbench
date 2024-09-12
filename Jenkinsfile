@@ -50,6 +50,7 @@ pipeline {
 
                 script {
                     env.DEPLOY_CONFIG_NAME = (params.BUILD=='production') ? 'front-prod' : 'front-qa'
+                    echo env.DEPLOY_CONFIG_NAME
                 }
 
 
