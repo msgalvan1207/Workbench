@@ -21,7 +21,7 @@ pipeline {
             steps {
                 sshPublisher( publishers: [
                     sshPublisherDesc(
-                        configName: 'Front-end-server',
+                        configName: 'front-prod',
                         transfers: [
                             sshTransfer(
                                 sourceFiles: 'dist/build-bench-ws/browser/**',
