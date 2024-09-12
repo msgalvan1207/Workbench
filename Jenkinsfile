@@ -64,7 +64,7 @@ pipeline {
 
                 sshPublisher( publishers: [
                     sshPublisherDesc(
-                        configName: 'front-prod',
+                        configName: deployConfigName,
                         transfers: [
                             sshTransfer(
                                 sourceFiles: 'dist/build-bench-ws/browser/**',
