@@ -49,31 +49,25 @@ pipeline {
 
 
                 script {
-                    env.DEPLOY_CONFIG_NAME = (params.BUILD=='production') ? 'front-prod' : 'front-qa'
-                    echo env.DEPLOY_CONFIG_NAME
-                }
-
-
-
-
-
-                sshPublisher( publishers: [
-                    sshPublisherDesc(
-                        configName: env.DEPLOY_CONFIG_NAME,
-                        transfers: [
-                            sshTransfer(
-                                sourceFiles: 'dist/build-bench-ws/browser/**',
-                                remoteDirectory: '', //Averiguar esto ahora
-                                remoteDirectorySDF: false,
-                                flatten: true
-                            )
-                        ],
-                        verbose: true,
-                        
+                    def configName = (params.BUILD=='production') ? 'front-prod' : 'front-qa'
+                
+                    sshPublisher( publishers: [
+                        sshPublisherDesc(
+                            configName: configName,
+                            transfers: [
+                                sshTransfer(
+                                    sourceFiles: 'dist/build-bench-ws/browser/**',
+                                    remoteDirectory: '', //Averiguar esto ahora
+                                    remoteDirectorySDF: false,
+                                    flatten: true
+                                )
+                            ],
+                            verbose: true,
+                        )
+                    ],
+                    alwaysPublishFromMaster: true
                     )
-                ],
-                alwaysPublishFromMaster: true
-                )
+                }
             }
         }
     }
