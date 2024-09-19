@@ -47,8 +47,12 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-                sh 'for file in dist/build-bench-ws/browser/* ; do filename=$(basename "$file"); curl -k -F "$filename=@$file" https://host.docker.internal:5000/upload/prod/front; done'
-                sh 'curl -k https://host.docker.internal:5000/deploy/prod/front'
+                script {
+                    def deployServer = (params.BUILD=='production') ? 'prod': 'qa'
+
+                    sh 'for file in dist/build-bench-ws/browser/* ; do filename=$(basename "$file"); curl -k -F "$filename=@$file" https://host.docker.internal:5000/upload/${deployServer}/front; done'
+                    sh 'curl -k https://host.docker.internal:5000/deploy/${deployServer}/front'
+                }
             }
         }
     }
