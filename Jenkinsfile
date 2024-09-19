@@ -9,6 +9,7 @@ pipeline {
         GIT_REPO = 'Workbench'
         GIT_CREDENTIAL_ID = 'github-auth-token'
         DEPLOY_CONFIG_NAME = ''
+        
     }
 
     parameters {
@@ -46,28 +47,8 @@ pipeline {
         }
         stage('Deploy') {
             steps {
-
-
-                script {
-                    def configName = (params.BUILD=='production') ? 'front-prod' : 'front-qa'
-                
-                    sshPublisher( publishers: [
-                        sshPublisherDesc(
-                            configName: configName,
-                            transfers: [
-                                sshTransfer(
-                                    sourceFiles: 'dist/build-bench-ws/browser/**',
-                                    remoteDirectory: '', //Averiguar esto ahora
-                                    remoteDirectorySDF: false,
-                                    flatten: true
-                                )
-                            ],
-                            verbose: true,
-                        )
-                    ],
-                    alwaysPublishFromMaster: true
-                    )
-                }
+                sh 'for file in dist/build-bench-ws/browser/* ; do filename=$(basename "$file"); curl -k -F "$filename=@$file" https://host.docker.internal:5000/upload/prod/front; done'
+                sh 'curl -k https://host.docker.internal:5000/deploy/prod/front'
             }
         }
     }
