@@ -64,6 +64,10 @@ pipeline {
             dir("${env.GIT_REPO}@tmp") {
                 deleteDir()
             }
+            step([$class: 'Mailer',
+                recipients: 'ms.galvan.dev@gmail.com',
+                notifyEveryUnstableBuild: false,
+                sendToIndividuals: false])
         }
     }
 }
