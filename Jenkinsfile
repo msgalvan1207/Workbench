@@ -50,12 +50,9 @@ pipeline {
                 script {
                     def deployServer = (params.BUILD=='production') ? 'prod': 'qa'
 
-                    withCredentials([string(credentialsId: 'JWT', variable: 'JWT')]) {
-
-                        sh "echo ${deployServer}"
-                        sh "for file in dist/build-bench-ws/browser/* ; do filename=\$(basename \"\$file\"); curl -k -F \"\$filename=@\$file\" https://host.docker.internal:5000/upload/${deployServer}/front -H \"Authorization: Bearer ${JWT}  ; done"
-                        sh "curl -k https://host.docker.internal:5000/deploy/${deployServer}/front -H \"Authorization: Bearer ${JWT}"
-                    }
+                    sh "echo ${deployServer}"
+                    sh "for file in dist/build-bench-ws/browser/* ; do filename=\$(basename \"\$file\"); curl -k -F \"\$filename=@\$file\" https://host.docker.internal:5000/upload/${deployServer}/front -H \"Authorization: Bearer ${JWT}  ; done"
+                    sh "curl -k https://host.docker.internal:5000/deploy/${deployServer}/front -H \"Authorization: Bearer ${JWT}"
                 }
             }
         }
