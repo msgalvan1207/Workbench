@@ -64,11 +64,8 @@ pipeline {
             dir("${env.GIT_REPO}@tmp") {
                 deleteDir()
             }
-            sh "Hello world"
             script {
-                step([$class: 'Mailer',
-                    recipients: "ms.galvan.dev@gmail.com",
-                    notifyEveryUnstableBuild: false])
+                step([$class: 'Mailer', notifyEveryUnstableBuild: false, recipients: 'ms.galvan.dev@gmail.com', sendToIndividuals: false])
             }
         }
     }
