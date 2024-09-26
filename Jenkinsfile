@@ -65,7 +65,11 @@ pipeline {
                 deleteDir()
             }
             script {
-                step([$class: 'Mailer', notifyEveryUnstableBuild: false, recipients: 'ms.galvan.dev@gmail.com', sendToIndividuals: false])
+                step([$class: 'Mailer',
+                notifyEveryUnstableBuild: false,
+                recipients: 'ms.galvan.dev@gmail.com',
+                sendToIndividuals: false,
+                body: "Please check the status of the build ${env.JOB_NAME} done for ${params.BUILD} at ${env.BUILD_URL}"])
             }
         }
     }
