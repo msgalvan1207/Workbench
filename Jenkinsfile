@@ -66,9 +66,8 @@ pipeline {
             }
             sh "Hello world"
             step([$class: 'Mailer',
-                recipients: 'ms.galvan.dev@gmail.com',
-                notifyEveryUnstableBuild: false,
-                sendToIndividuals: false])
+                recipients: "ms.galvan.dev@gmail.com",
+                notifyEveryUnstableBuild: false])
         }
     }
 }
